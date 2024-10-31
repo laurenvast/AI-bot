@@ -1,16 +1,20 @@
 body{
     background: #E7F7A4;
     font-family: 'Lato', sans-serif;
-    font-size: 18px;
+    font-size: 1.25rem;
     height: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    margin: 1em;
 }
 
 h1 {
-  font-size: 1.5em;
+  font-size: 1.25em;
   text-align: center;
+  color: #000000;
+  opacity: .8;
+  margin-top: 0;
 }
 
 .chat-interface {
@@ -22,14 +26,15 @@ h1 {
   flex-direction: column;
   position: relative;
   max-width: 38em;
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
+  flex-grow: 3;
+
 
 }
 
 .messages-container {
     border-radius: 32px;
     overflow: hidden;
-    flex: 1;
     margin-bottom: 1em;
     min-height: 0;
     background: white;
@@ -37,6 +42,7 @@ h1 {
     flex-direction: column;
     padding: 0 2em;
     padding-right: 0;
+    flex-grow: 3;
 }
 
 
@@ -191,10 +197,7 @@ cursor: not-allowed;
 }
 
 .input-container {
-  flex-shrink: 0;
-  background: white;
-  border-radius: 32px;
-  overflow: hidden;
+  /* flex-grow: 0; */
 
 }
 
@@ -203,13 +206,16 @@ cursor: not-allowed;
   display: flex;
   align-items: center;
   gap: 1em;
-  padding-right: 1em;
+  padding: 0 1em 0 0;
   margin: 0;
+  border-radius: 32px;
+  overflow: hidden;
+  background: white;
 }
 
 .chat-input {
   width: 100%;
-  padding: 1.5em 2em;
+  padding: 1.5em;
   border: none;
   font-size: 1em;
   outline: none;
@@ -344,8 +350,8 @@ input.chat-input:hover {
 
 /* Add focus states for accessibility */
 .chat-input:focus {
-    outline: 2px solid #E2E100;
-    outline-offset: -2px;
+    /* outline: 2px solid #E2E100; */
+    /* outline-offset: -2px; */
 }
 
 
@@ -364,4 +370,14 @@ input.chat-input:hover {
     50% {
         opacity: 0.5;
     }
+}
+
+@media only screen and (max-width: 600px) {
+  .messages-container {
+    padding-left:1em;
+  }
+  .chat-messages {
+    padding-right: 1em;
+    padding-top: 1em;
+  }
 }
