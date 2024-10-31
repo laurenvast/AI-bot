@@ -380,4 +380,23 @@ input.chat-input:hover {
     padding-right: 1em;
     padding-top: 1em;
   }
+  .bot-message {
+    gap: .75em;
+  }
+  .options-container {
+    margin-left: 2em;
+    margin-top: 1em;
+  }
+  .option-button {
+    padding: .25em .5em;
+    gap: .5em;
+  }
+
+  .chat-input {
+    padding: 1.25em 0 1.25em 1em;
+  }
+  .input-form {
+    gap: .5em;
+    padding: 0 .5em 0 0;
+  }
 }
