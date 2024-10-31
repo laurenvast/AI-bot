@@ -34,7 +34,7 @@ class ChatInterface {
         this.MIN_MESSAGE_LENGTH = 2;
         
         // Final message content
-        this.LIMIT_MESSAGE = `Thank you for your interest in Lauren's work! I've reached my message limit, but please explore the rest of the portfolio. Get in touch with Lauren directly: heylaurenwang@gmail.com`;
+        this.LIMIT_MESSAGE = `Thank you for your interest in Lauren! I've reached my message limit, but you can learn more about her work at https://lauren.wang or get in touch with Lauren directly at heylaurenwang@gmail.com`;
 
 
         // Validate required elements
@@ -73,6 +73,14 @@ class ChatInterface {
             this.handleError(new Error('Configuration missing'));
             return;
         }
+        this.urlRegex = /(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/g;
+
+    }
+    linkifyText(text) {
+        return text.replace(
+            this.urlRegex,
+            url => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="contact-link">${url}</a>`
+        );
     }
 
     initializeAnalytics() {
@@ -107,16 +115,6 @@ class ChatInterface {
 
     initializeStyles() {
         const style = document.createElement('style');
-        style.textContent = `
-            .contact-link {
-                color: #1a73e8;
-                text-decoration: none;
-                font-weight: 500;
-            }
-            .contact-link:hover {
-                text-decoration: underline;
-            }
-        `;
         document.head.appendChild(style);
     }
 
@@ -132,7 +130,7 @@ class ChatInterface {
     initialize() {
         const initialMessage = {
             type: 'bot',
-            content: "👋 I'm Lauren's AI assistant, designed to help you learn about her professionally. I draw from her actual work history, reviews, and case studies to provide authentic insights. Ask your own question or pick one below👇",
+            content: "👋 I'm Lauren's AI assistant, designed to help you learn about her professionally. I draw from her actual work history, case studies, and reviews to provide authentic insights. Ask any question or pick one below👇",
             options: initialOptions
         };
         this.addMessage(initialMessage);
@@ -238,6 +236,8 @@ class ChatInterface {
                 }, this.typingSpeed);
             });
         }
+
+        messageText.innerHTML = this.linkifyText(messageText.textContent);
 
         // Show options after typing animation completes if not reached limit
         if (optionsContainer && !this.isLimitReached) {
@@ -360,10 +360,6 @@ class ChatInterface {
         }
 
         this.pruneOldMessages();
-        
-        if (this.isLimitReached && message.content !== this.LIMIT_MESSAGE) {
-            return;
-        }
 
         this.messageCount++;
         const messageId = this.messageCount;
@@ -383,7 +379,7 @@ class ChatInterface {
         if (message.type === 'bot') {
             messageElement.innerHTML = `
                 <div class="bot-message">
-                    <div class="avatar" role="img" aria-label="Assistant avatar">L</div>
+                    <div class="avatar" role="img" aria-label="Assistant avatar">L˙</div>
                     <div class="message-content">
                         <div class="message-text"></div>
                     </div>
@@ -394,17 +390,17 @@ class ChatInterface {
                             const [emoji, ...textParts] = option.split(' ');
                             const text = textParts.join(' ');
                             return `
-                                <button class="option-button pre-animation ${this.isLimitReached ? 'disabled' : ''}" 
-                                    data-index="${index}"
-                                    style="--animation-order: ${index};"
+                                <button class="option-button pre-animation" 
                                     data-message-id="${messageId}" 
                                     data-option="${option}"
+                                    data-index="${index}"
                                     tabindex="0"
                                     role="button"
                                     aria-label="${text}"
+                                    style="--animation-order: ${index};"
                                     ${this.isLimitReached ? 'disabled' : ''}>
                                     <span class="option-emoji" aria-hidden="true">${emoji}</span>
-                                    <span class="option-text">${text}</span>
+                                    <span class="option-text">${this.linkifyText(text)}</span>
                                 </button>
                             `;
                         }).join('')}
@@ -415,16 +411,16 @@ class ChatInterface {
             this.chatMessages.appendChild(messageElement);
             this.animateTyping(messageElement, message.content, message.options);
         } else {
-            const cleanContent = message.content.replace(/^\S+\s/, '');
             messageElement.innerHTML = `
                 <div class="user-message">
-                    <div class="user-content">${message.content}</div>
+                    <div class="user-content">${this.linkifyText(message.content)}</div>
                 </div>
             `;
             
             this.chatMessages.appendChild(messageElement);
             this.scrollToBottom();
         }
+
 
         if (message.options && !this.isLimitReached) {
             messageElement.querySelectorAll('.option-button').forEach(button => {

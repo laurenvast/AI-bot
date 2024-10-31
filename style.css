@@ -12,9 +12,12 @@ body{
 h1 {
   font-size: 1.25em;
   text-align: center;
-  color: #000000;
-  opacity: .8;
+  color: #463b0b;
   margin-top: 0;
+}
+
+.contact-link {
+  color: #fe4c55;
 }
 
 .chat-interface {
@@ -86,15 +89,15 @@ h1 {
 .avatar {
   width: 1.5em;
   height: 1.5em;
-  border-radius: 9999px;
-  background: #e88073;
+  border-radius: .65em .15em;
+  background: #fe4c55;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .message-content {
@@ -104,7 +107,8 @@ h1 {
 .message-text {
   font-size: 1em;
   line-height: 1.5;
-  user-select: none;
+  color: #463b0b;
+  /* user-select: none; */
 
 }
 .message-text.typing-complete {
@@ -158,13 +162,15 @@ display: none;
   border: dotted 3px #E2E100;
   border-radius: 24px;
   transition: background-color 0.1s ease-in-out, border 0.1s ease-in-out;
-
+  color: rgb(70 59 11 / 85%);
 
 }
 
 .option-button:not(.selected):hover {
     background: #E7F7A4;
     border: solid 3px #E7F7A4;
+    color: rgb(0 0 0 / 85%);
+
 
 }
 
@@ -229,6 +235,7 @@ cursor: not-allowed;
   font-size: 1em;
   outline: none;
   background: white;
+  color: rgb(70 59 11);
 
 }
 
@@ -250,7 +257,8 @@ input.chat-input:hover {
   align-items: center;
   justify-content: center;
   transition: background-color 200ms;
-  
+  color: #463b0b;
+
 }
 
 .send-button:hover {
@@ -283,7 +291,7 @@ input.chat-input:hover {
     width: 10px;
     height: 10px;
     margin-right: 8px;
-    background-color: #e88073; /* Matches your avatar color */
+    background-color: #fe4c55; /* Matches your avatar color */
     border-radius: 50%;
     opacity: 0.4;
     animation: typing 1s infinite;
@@ -295,12 +303,12 @@ input.chat-input:hover {
 
 .typing-indicator span:nth-child(2) { 
     animation-delay: 0.2s;
-    background-color: #e9947a; /* Slightly lighter shade */
+    background-color: #fe4c55b0; /* Slightly lighter shade */
 }
 
 .typing-indicator span:nth-child(3) { 
     animation-delay: 0.4s;
-    background-color: #eaa891; /* Even lighter shade */
+    background-color: #fe4c5546; /* Even lighter shade */
 }
 
 @keyframes typing {
