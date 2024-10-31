@@ -63,7 +63,7 @@ class ChatInterface {
         this.initializeAnalytics();
 
         // Verify config exists
-        if (!CONFIG || !CONFIG.ANTHROPIC_API_KEY) {
+        if (!CONFIG || !CONFIG.KEY) {
             console.error('API configuration is missing');
             this.handleError(new Error('Configuration missing'));
             return;
@@ -623,7 +623,7 @@ class ChatInterface {
 
     
     async getAIResponse(userMessage) {
-        if (!CONFIG?.ANTHROPIC_API_KEY) {
+        if (!CONFIG?.KEY) {
             throw new Error('API configuration is missing');
         }
         await this.rateLimit();
@@ -633,7 +633,7 @@ class ChatInterface {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': CONFIG?.ANTHROPIC_API_KEY,
+                    'x-api-key': CONFIG?.KEY,
                     'anthropic-version': '2023-06-01',
                     'anthropic-dangerous-direct-browser-access': 'true'
                 },
