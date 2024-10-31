@@ -126,6 +126,15 @@ display: none;
    
 }
 
+.option-button.pre-animation {
+  opacity: 0;
+  transform: translateY(1.5em);
+}
+
+.option-button.animate-in {
+  animation: slideIn .3s ease-in-out forwards;
+}
+
 @keyframes fadeIn {
     to {
         display: flex;
@@ -148,7 +157,7 @@ display: none;
   line-height: 1.5em;
   border: dotted 3px #E2E100;
   border-radius: 24px;
-  transition: all 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out, border 0.1s ease-in-out;
 
 
 }
@@ -400,3 +409,4 @@ input.chat-input:hover {
     padding: 0 .5em 0 0;
   }
 }
+

@@ -43,6 +43,11 @@ class ChatInterface {
             return;
         }
 
+        this.animationConfig = {
+            staggerDelay: 100,
+            fadeInDuration: 300
+        };
+
         // Initialize chat
         this.setupAccessibility();
         this.initialize();
@@ -237,6 +242,15 @@ class ChatInterface {
         // Show options after typing animation completes if not reached limit
         if (optionsContainer && !this.isLimitReached) {
             optionsContainer.style.display = 'flex';
+
+            const options = optionsContainer.querySelectorAll('.option-button');
+            options.forEach((option, index) => {
+                setTimeout(() => {
+                    option.classList.remove('pre-animation');
+                    option.classList.add('animate-in');
+                }, index * this.animationConfig.staggerDelay);
+            });
+
             this.scrollToBottom();
         }
     }
@@ -380,7 +394,9 @@ class ChatInterface {
                             const [emoji, ...textParts] = option.split(' ');
                             const text = textParts.join(' ');
                             return `
-                                <button class="option-button ${this.isLimitReached ? 'disabled' : ''}" 
+                                <button class="option-button pre-animation ${this.isLimitReached ? 'disabled' : ''}" 
+                                    data-index="${index}"
+                                    style="--animation-order: ${index};"
                                     data-message-id="${messageId}" 
                                     data-option="${option}"
                                     tabindex="0"
